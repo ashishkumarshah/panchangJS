@@ -4,7 +4,7 @@
 d2r = Math.PI/180;
 r2d = 180/Math.PI;
 var zn = ["Mesha","Vrushabha","Mithuna","Karkataka","Simha","Kanya","Tula","Vrushchika","Dhanu","Makara","Kumbha","Meena"];
-var wd = ["Sunday","Monday","Tuesday","Wednessday","Thursday","Friday","Saturday"];
+var wd = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 var range = [1,31,0,0,-3000,4000,0,23,0,59,-12,12,0,59];
 var naks = ["Ashwini","Bharani","Kruthika","Rohini","Mrugasira","Aarudra","Punarwasu","Pushyami","Aslesha","Makha","Pubha","Uttara","Hasta","Chitta","Swati","Visakha","Anuradha","Jyesta","Mula","Purva-Shada","Uttara-Shaada","Sravanam","Dhanista","Satabhisham","Purva-Bhadra","Uttara-Bhadra","Revathi"];
 var tith =["Padyami","Vidhiya","Thadiya","Chavithi","Panchami","Shasti","Sapthami","Ashtami","Navami","Dasami","Ekadasi","Dvadasi","Trayodasi","Chaturdasi","Punnami","Padyami","Vidhiya","Thadiya","Chaviti","Panchami","Shasti","Sapthami","Ashtami","Navami","Dasami","Ekadasi","Dvadasi","Trayodasi","Chaturdasi","Amavasya"];
@@ -743,18 +743,11 @@ wday = Math.floor(jdn - dn1);
 
 return wday;
 }
+var exports = module.exports = {};
+exports.calculate = function(d) {
 
-panchang = {
- Day: {},
- Tithi: {},
- Nakshatra: {},
- Karna: {},
- Yoga: {},
- Ayanamsa: {},
- Raasi:{},
- version: "0.2",
- calculate: function(d,cb){
    var n_wday, n_tithi=1, n_naksh=1, n_karana, n_yoga;
+   var retVal = {};
 
     with(Math){
      var day = d.getDate();
@@ -774,7 +767,8 @@ panchang = {
 
     // day:
     n_wday = weekDay(jdlt);
-    this.Day.name = wd[n_wday];
+    retVal.Day = {};
+    retVal.Day.name = wd[n_wday];
 
 // julian day at the begining of the day
     jd0 = mdy2julian(mon,day,year);
@@ -828,24 +822,25 @@ var s_karana = tithi(jd, nk, tzone, 6);
 with(Math){
 var z = floor(abs(fix360(Lmoon + ayanamsa))/30);
 }
-
-    this.Ayanamsa.name = lon2dms(ayanamsa);
-    this.Raasi.name = zn[z];
-    this.Nakshatra.name =naks[n_naksh];
-    this.Nakshatra.start = s_naksh.start;
-    this.Nakshatra.end =s_naksh.end;
-
-    this.Karna.name =kar[n_karana];
-    this.Karna.start =s_karana.start;
-    this.Karna.end =s_karana.end;
-
-    this.Yoga.name =yog[n_yoga];
-    this.Yoga.start = s_yoga.start;
-    this.Yoga.end = s_yoga.end;
-
-    this.Tithi.name =tith[n_tithi];
-    this.Tithi.start = s_tithi.start;
-    this.Tithi.end = s_tithi.end;
-    if (cb) { cb();}
-}
-}
+    retVal.Ayanamsa = {};
+    retVal.Ayanamsa.name = lon2dms(ayanamsa);
+    retVal.Raasi = {};
+    retVal.Raasi.name = zn[z];
+    retVal.Nakshatra = {};
+    retVal.Nakshatra.name =naks[n_naksh];
+    retVal.Nakshatra.start = s_naksh.start;
+    retVal.Nakshatra.end =s_naksh.end;
+    retVal.Karna = {};
+    retVal.Karna.name =kar[n_karana];
+    retVal.Karna.start =s_karana.start;
+    retVal.Karna.end =s_karana.end;
+    retVal.Yoga = {};
+    retVal.Yoga.name =yog[n_yoga];
+    retVal.Yoga.start = s_yoga.start;
+    retVal.Yoga.end = s_yoga.end;
+    retVal.Tithi = {};
+    retVal.Tithi.name =tith[n_tithi];
+    retVal.Tithi.start = s_tithi.start;
+    retVal.Tithi.end = s_tithi.end;
+    return retVal;
+};

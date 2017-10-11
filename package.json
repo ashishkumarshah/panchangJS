@@ -1,0 +1,22 @@
+{
+  "name": "panchang",
+  "version": "0.0.1",
+  "description": "A Javascript Library to calculate the panchang",
+  "main": "panchang.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashishkumarshah/panchangJS.git"
+  },
+  "author": "Ashish Kumar Shah",
+  "license": "MPL 2.0",
+  "bugs": {
+    "url": "https://github.com/ashishkumarshah/panchangJS/issues"
+  },
+  "homepage": "https://github.com/ashishkumarshah/panchangJS#readme",
+  "devDependencies": {
+    "jshint": "^2.9.5"
+  }
+}
