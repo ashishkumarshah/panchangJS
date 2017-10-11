@@ -744,7 +744,8 @@ wday = Math.floor(jdn - dn1);
 return wday;
 }
 var exports = module.exports = {};
-exports.calculate = function(d) {
+exports.calculatePanchang = function(d) {
+   d = d || new Date();
 
    var n_wday, n_tithi=1, n_naksh=1, n_karana, n_yoga;
    var retVal = {};
